@@ -1,5 +1,5 @@
 [package]
-name = "francolin-mir"
+name = "mirach"
 version = "0.1.0"
 authors = ["A.G. <aym.gomi@gmail.com>"]
 edition = "2018"
