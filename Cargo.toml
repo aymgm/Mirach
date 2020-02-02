@@ -1,0 +1,11 @@
+[package]
+name = "francolin-mir"
+version = "0.1.0"
+authors = ["A.G. <aym.gomi@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+llvm-sys = "80"
+symbol = "*"
+libc = "0.2.0"
+thiserror = "1.0"

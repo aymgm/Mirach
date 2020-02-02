@@ -1,0 +1,28 @@
+name: Test on Windows
+
+on: [push]
+
+jobs:
+
+  test-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Make environment
+        shell: cmd
+        run: |
+          git clone https://github.com/msys2/msys2-ci-base.git C:\msys64
+          path C:\msys64\usr\bin;C:\msys64\mingw64\bin
+          pacman --noconfirm -Syyuu
+          pacman --noconfirm -S mingw-w64-x86_64-llvm mingw-w64-x86_64-rust mingw-w64-x86_64-z3
+          del C:\msys64\mingw64\x86_64-w64-mingw32\lib\libpthread.dll.a
+      - uses: actions/checkout@v1
+      - name: Build
+        run: bash -c "cargo build --verbose"
+        env:
+          PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin
+          LLVM_SYS_80_PREFIX: C:\msys64\mingw64\lib
+      - name: Run tests
+        run: bash -c "cargo test --verbose"
+        env:
+          PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin
+          LLVM_SYS_80_PREFIX: C:\msys64\mingw64\lib

@@ -1,0 +1,15 @@
+name: Test on Linux
+
+on: [push]
+
+jobs:
+  test-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        sudo apt update && sudo apt install -y llvm-8-dev
+    - uses: actions/checkout@v1
+    - name: Build
+      run: cargo build --verbose
+    - name: Run tests
+      run: cargo test --verbose

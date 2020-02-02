@@ -1,0 +1,20 @@
+name: Test on Mac
+
+on: [push]
+
+jobs:
+  test-mac:
+    runs-on: macOS-latest
+    steps:
+    - name: Install Rust and LLVM
+      run: |
+        brew install rust llvm@8
+    - uses: actions/checkout@v1
+    - name: Build
+      run: cargo build --verbose
+      env:
+        LLVM_SYS_80_PREFIX: /usr/local/opt/llvm@8
+    - name: Run tests
+      run: cargo test --verbose
+      env:
+        LLVM_SYS_80_PREFIX: /usr/local/opt/llvm@8
